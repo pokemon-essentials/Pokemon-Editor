@@ -1,0 +1,84 @@
+<template>
+    <div class="tilemap_editor">
+      <div class="sidebar">
+        <LayersPanel></LayersPanel>
+        <TilesetPanel></TilesetPanel>
+      </div>
+      <div class="viewport">
+        <div class="toolbar"></div>
+        <div ref="wrapper" class="board-wrapper">
+          <GridLayer></GridLayer>
+          <GhostTile></GhostTile>
+        </div>
+        <footer>
+          {{x}} - {{y}}
+        </footer>
+      </div>
+    </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+import { EventBus } from "../EventBus";
+import TilesetPanel from "./Tilemap/TilesetPanel";
+import LayersPanel from "./Tilemap/LayersPanel";
+import GhostTile from "./Tilemap/GhostTile";
+import GridLayer from "./Tilemap/GridLayer";
+
+export default {
+  components: { TilesetPanel, LayersPanel, GhostTile, GridLayer },
+  created() {
+    EventBus.$on("MOVE_GHOST_TILE", this.updateFooter);
+  },
+  data() {
+    return { x: null, y: null };
+  },
+  methods: {
+    updateFooter(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+};
+</script>
+
+
+<style scoped>
+.tilemap_editor {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+select {
+  flex: 1;
+  margin: 10px 0;
+}
+
+.viewport {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.board-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: auto;
+}
+
+.toolbar {
+  background-color: #c1c1c1;
+  min-height: 20px;
+}
+
+footer {
+  background-color: #c1c1c1;
+  min-height: 20px;
+}
+</style>
