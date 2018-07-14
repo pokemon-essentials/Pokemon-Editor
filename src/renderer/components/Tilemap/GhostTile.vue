@@ -21,7 +21,8 @@ export default {
       context.clearRect(0, 0, this.width, this.height);
       this.$el.width = w;
       this.$el.height = h;
-      context.drawImage(this.TileEditor.stileset, startPoint.x, startPoint.y, w, h, 0, 0, w, h);
+      let img = this.TileEditor.tilesets[this.TileEditor.stileset];
+      context.drawImage(img, startPoint.x, startPoint.y, w, h, 0, 0, w, h);
     },
     move(x, y) {
       this.$el.style.left = x + "px";

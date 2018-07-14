@@ -2,6 +2,9 @@
     <div class="tilemap_editor">
       <div class="sidebar">
         <LayersPanel></LayersPanel>
+        <select name="" id="">
+          <option v-for="tileset in TileEditor.map.tilesets" :key="tileset.name">{{tileset.name}}</option>
+        </select>
         <TilesetPanel></TilesetPanel>
       </div>
       <div class="viewport">
@@ -62,7 +65,7 @@ export default {
 
 select {
   flex: 1;
-  margin: 10px 0;
+  min-height: 20px;
 }
 
 .viewport {

@@ -5,12 +5,12 @@
 <script>
 import { EventBus } from "../../EventBus";
 import { mapState } from "vuex";
-import { snapToGrid, indexToX, indexToY, indexToCol, indexToRow } from "../../Utils";
+import { snapToGrid, indexToX, indexToY, getTilesetIndex } from "../../Utils";
 
 export default {
   props: ["data"],
-  mounted() {
-    this.render();
+  created() {
+    EventBus.$on("RENDER_MAP", this.render);
   },
   methods: {
     render() {
@@ -22,14 +22,16 @@ export default {
       for (let index = 0; index < this.data.length; index++) {
         let tile = this.data[index];
         if (tile === 0) continue;
-        // tile = (tile - 1) * this.TileEditor.map.tilewidth;
+        let tilesetIndex = getTilesetIndex(tile);
+        let tileset = this.TileEditor.map.tilesets[tilesetIndex];
+        let tilesetImg = this.TileEditor.tilesets[tilesetIndex];
         tile -= 1;
-        let sx = (tile % this.TileEditor.map.tilesets[0].columns) * this.TileEditor.map.tilewidth;
-        let sy = Math.floor(tile / this.TileEditor.map.tilesets[0].columns) * this.TileEditor.map.tilewidth;
+        let sx = (tile % tileset.columns) * this.TileEditor.map.tilewidth;
+        let sy = Math.floor(tile / tileset.columns) * this.TileEditor.map.tilewidth;
         let tx = indexToX(index);
         let ty = indexToY(index);
         // console.log(sy, sx, tx, ty);
-        context.drawImage(this.TileEditor.stileset, sx, sy, w, h, tx, ty, w, h);
+        context.drawImage(tilesetImg, sx, sy, w, h, tx, ty, w, h);
       }
     }
   },

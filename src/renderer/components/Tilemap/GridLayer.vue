@@ -66,5 +66,7 @@ export default {
 <style scoped>
 canvas {
   position: absolute;
+  margin-bottom: 150px;
+  margin-right: 150px;
 }
 </style>

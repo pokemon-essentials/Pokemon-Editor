@@ -19,3 +19,13 @@ export function indexToCol(index) {
 export function indexToRow(index) {
   return Math.floor(index / store.state.TileEditor.map.height);
 }
+
+export function getTilesetIndex(tiledata) {
+  if (store.state.TileEditor.map.tilesets.length === 1) return 0;
+  for (let index = 1; index < store.state.TileEditor.map.tilesets.length; index++) {
+    const tileset = store.state.TileEditor.map.tilesets[index];
+    if (tiledata < tileset.firstgid) {
+      return index - 1;
+    }
+  }
+}

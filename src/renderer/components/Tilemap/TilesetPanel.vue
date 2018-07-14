@@ -26,14 +26,29 @@ export default {
     return {
       startPoint: { x: 0, y: 0 },
       endPoint: { x: 0, y: 0 },
-      dragging: false
+      dragging: false,
+      selected: 0
     };
   },
   methods: {
     selectTileset() {
-      this.$store.commit("SELECT_TILESET", this.$refs.tileset);
+      let tilsetsImgs = [];
+      for (const tileset of this.TileEditor.map.tilesets) {
+        if (!tileset.name) {
+          tilsetsImgs.push(null);
+          continue;
+        } else {
+          // let img = document.createElement("img");
+          // img.src = "imgs/HGSS_Outside--assets.png";
+          tilsetsImgs.push(tileset.name);
+        }
+      }
+      this.$store.dispatch("LoadAllTileset", tilsetsImgs).then(resp => {
+        EventBus.$emit("RENDER_MAP");
+      });
     },
     selectTile(e) {
+      this.$store.commit("SET_TILESET", this.selected);
       this.dragging = true;
       let parentRect = this.$refs.parent.getBoundingClientRect();
       let tilesetRect = this.$refs.tileset.getBoundingClientRect();
