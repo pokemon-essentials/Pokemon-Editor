@@ -21,7 +21,7 @@ export default {
       context.clearRect(0, 0, this.width, this.height);
       this.$el.width = w;
       this.$el.height = h;
-      context.drawImage(this.Tilemap.stileset, startPoint.x, startPoint.y, w, h, 0, 0, w, h);
+      context.drawImage(this.TileEditor.stileset, startPoint.x, startPoint.y, w, h, 0, 0, w, h);
     },
     move(x, y) {
       this.$el.style.left = x + "px";
@@ -36,7 +36,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["Tilemap"])
+    ...mapState(["TileEditor"])
   }
 };
 </script>

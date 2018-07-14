@@ -19,6 +19,9 @@ import { mapState } from "vuex";
 
 export default {
   components: { TileSelection },
+  mounted() {
+    this.selectTileset();
+  },
   data() {
     return {
       startPoint: { x: 0, y: 0 },
@@ -27,8 +30,10 @@ export default {
     };
   },
   methods: {
-    selectTile(e) {
+    selectTileset() {
       this.$store.commit("SELECT_TILESET", this.$refs.tileset);
+    },
+    selectTile(e) {
       this.dragging = true;
       let parentRect = this.$refs.parent.getBoundingClientRect();
       let tilesetRect = this.$refs.tileset.getBoundingClientRect();
@@ -37,8 +42,8 @@ export default {
       let left = e.pageX - parentRect.left;
       this.startPoint.x = snapToGrid(left);
       this.startPoint.y = snapToGrid(top);
-      let width = this.Map.TILE_SIZE;
-      let height = this.Map.TILE_SIZE;
+      let width = this.TileEditor.map.tilewidth;
+      let height = this.TileEditor.map.tileheight;
       EventBus.$emit("SELECT_TILE", this.startPoint.x, this.startPoint.y, width, height);
       EventBus.$emit("UPDATE_GHOST_TILE", this.startPoint, width, height);
     },
@@ -60,15 +65,15 @@ export default {
         if (this.startPoint.y > this.endPoint.y) {
           [this.startPoint.y, this.endPoint.y] = [this.endPoint.y, this.startPoint.y];
         }
-        let width = this.endPoint.x - this.startPoint.x + this.Map.TILE_SIZE;
-        let height = this.endPoint.y - this.startPoint.y + this.Map.TILE_SIZE;
+        let width = this.endPoint.x - this.startPoint.x + this.TileEditor.map.tilewidth;
+        let height = this.endPoint.y - this.startPoint.y + this.TileEditor.map.tileheight;
         EventBus.$emit("SELECT_TILE", this.startPoint.x, this.startPoint.y, width, height);
         EventBus.$emit("UPDATE_GHOST_TILE", this.startPoint, width, height);
       }
     }
   },
   computed: {
-    ...mapState(["Map"])
+    ...mapState(["TileEditor"])
   }
 };
 </script>

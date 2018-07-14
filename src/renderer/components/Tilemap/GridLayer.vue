@@ -16,32 +16,30 @@ export default {
   },
   methods: {
     render() {
-      let cols = this.Tilemap.width;
-      let rows = this.Tilemap.height;
+      let cols = this.TileEditor.map.width;
+      let rows = this.TileEditor.map.height;
       let context = this.$el.getContext("2d");
 
-      console.log(cols, rows);
+      this.$el.width = this.TileEditor.map.width * this.TileEditor.map.tilewidth;
+      this.$el.height = this.TileEditor.map.height * this.TileEditor.map.tileheight;
 
-      this.$el.width = this.Tilemap.width * this.Tilemap.TILE_SIZE;
-      this.$el.height = this.Tilemap.height * this.Tilemap.TILE_SIZE;
-
-      context.strokeStyle = "rgba(100,100,100,0.8)";
+      context.strokeStyle = "rgba(50,50,50,0.9)";
       context.lineWidth = 1;
 
       // fix the sub-pixel line problem by subtracting 0.5
       for (let col = 1; col < cols; col++) {
         context.beginPath();
         context.setLineDash([4, 1]);
-        context.moveTo(col * this.Tilemap.TILE_SIZE, 0);
-        context.lineTo(col * this.Tilemap.TILE_SIZE, this.$el.height);
+        context.moveTo(col * this.TileEditor.map.tileheight, 0);
+        context.lineTo(col * this.TileEditor.map.tileheight, this.$el.height);
         context.stroke();
       }
 
       for (let row = 1; row < rows; row++) {
         context.beginPath();
         context.setLineDash([4, 1]);
-        context.moveTo(0, row * this.Tilemap.TILE_SIZE);
-        context.lineTo(this.$el.width, row * this.Tilemap.TILE_SIZE);
+        context.moveTo(0, row * this.TileEditor.map.tilewidth);
+        context.lineTo(this.$el.width, row * this.TileEditor.map.tilewidth);
         context.stroke();
       }
     },
@@ -60,7 +58,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["Tilemap"])
+    ...mapState(["TileEditor"])
   }
 };
 </script>

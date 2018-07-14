@@ -1,9 +1,8 @@
+let map = require('../../assets/map1.json');
 const state = {
-  TILE_SIZE: 32,
-  width: 18,
-  height: 12,
   slayer: null,
-  stileset: null
+  stileset: null,
+  map
 };
 
 const mutations = {

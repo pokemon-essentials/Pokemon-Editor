@@ -7,6 +7,7 @@
       <div class="viewport">
         <div class="toolbar"></div>
         <div ref="wrapper" class="board-wrapper">
+          <TileLayer v-for="layer in TileEditor.map.layers" :key="layer.name" :data="layer.data"></TileLayer>
           <GridLayer></GridLayer>
           <GhostTile></GhostTile>
         </div>
@@ -24,9 +25,10 @@ import TilesetPanel from "./Tilemap/TilesetPanel";
 import LayersPanel from "./Tilemap/LayersPanel";
 import GhostTile from "./Tilemap/GhostTile";
 import GridLayer from "./Tilemap/GridLayer";
+import TileLayer from "./Tilemap/TileLayer";
 
 export default {
-  components: { TilesetPanel, LayersPanel, GhostTile, GridLayer },
+  components: { TilesetPanel, LayersPanel, GhostTile, GridLayer, TileLayer },
   created() {
     EventBus.$on("MOVE_GHOST_TILE", this.updateFooter);
   },
@@ -38,6 +40,9 @@ export default {
       this.x = x;
       this.y = y;
     }
+  },
+  computed: {
+    ...mapState(["TileEditor"])
   }
 };
 </script>
