@@ -1,13 +1,13 @@
 <template>
     <div class="menu_toolbar">
       <button>
-        <MapIcon @click="toggleProjectExplorer()"></MapIcon>
+        <MapIcon @click="goto('landing-page')"></MapIcon>
       </button>
       <button>
         <CodeIcon @click="toggleProjectExplorer()"></CodeIcon>
       </button>
       <button>
-        <DatabaseIcon @click="toggleProjectExplorer()"></DatabaseIcon>
+        <DatabaseIcon @click="goto('EventEditor')"></DatabaseIcon>
       </button>
     </div>
 </template>
@@ -20,6 +20,9 @@ export default {
   methods: {
     toggleProjectExplorer() {
       EventBus.$emit("TOGGLE_PROJECT_EXPLORER");
+    },
+    goto(route) {
+      this.$router.push({ name: route });
     }
   }
 };

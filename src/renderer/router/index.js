@@ -8,7 +8,12 @@ export default new Router({
     {
       path: "/",
       name: "landing-page",
-      component: require("@/components/TilemapEditor").default
+      component: () => import("@/components/TilemapEditor")
+    },
+    {
+      path: "/EventEditor",
+      name: "EventEditor",
+      component: () => import("@/components/Events/EventEditor")
     },
     {
       path: "*",

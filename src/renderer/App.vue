@@ -47,4 +47,9 @@ canvas {
   image-rendering: pixelated;
   /* CSS4 Proposed  */
 }
+
+.el-dialog__body {
+  padding: 30px 20px;
+  padding-top: 0;
+}
 </style>
