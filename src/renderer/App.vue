@@ -15,6 +15,8 @@ export default {
 };
 </script>
 
+<style src="./global.css"></style>
+
 <style>
 * {
   margin: 0;

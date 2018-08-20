@@ -2,9 +2,10 @@
     <div class="tilemap_editor">
       <div class="sidebar">
         <LayersPanel></LayersPanel>
-        <select name="" id="">
+        <el-button size="mini" @click="openEventEditor">hola</el-button>
+        <!-- <select name="" id="">
           <option v-for="tileset in TileEditor.map.tilesets" :key="tileset.name">{{tileset.name}}</option>
-        </select>
+        </select> -->
         <TilesetPanel></TilesetPanel>
       </div>
       <div class="viewport">
@@ -18,6 +19,7 @@
           {{x}} - {{y}}
         </footer>
       </div>
+      <EventEditor ref="EventEditor"></EventEditor>
     </div>
 </template>
 
@@ -29,9 +31,10 @@ import LayersPanel from "./Tilemap/LayersPanel";
 import GhostTile from "./Tilemap/GhostTile";
 import GridLayer from "./Tilemap/GridLayer";
 import TileLayer from "./Tilemap/TileLayer";
+import EventEditor from "./Events/EventEditor";
 
 export default {
-  components: { TilesetPanel, LayersPanel, GhostTile, GridLayer, TileLayer },
+  components: { TilesetPanel, LayersPanel, GhostTile, GridLayer, TileLayer, EventEditor },
   created() {
     EventBus.$on("MOVE_GHOST_TILE", this.updateFooter);
   },
@@ -42,6 +45,9 @@ export default {
     updateFooter(x, y) {
       this.x = x;
       this.y = y;
+    },
+    openEventEditor() {
+      this.$refs.EventEditor.open();
     }
   },
   computed: {

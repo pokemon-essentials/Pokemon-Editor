@@ -5,7 +5,15 @@
     :visible.sync="visible"
     :close-on-click-modal="false"
     append-to-body>
-    <el-table height="250" :data="switches" :show-header="false" style="width:100%" size="mini" border stripe>
+    <el-table
+      height="250"
+      :data="switches"
+      :show-header="false"
+      style="width:100%"
+      size="mini"
+      highlight-current-row
+      border
+      stripe>
       <el-table-column type="index"></el-table-column>
       <el-table-column prop="name" label="Name" align="left"></el-table-column>
     </el-table>
