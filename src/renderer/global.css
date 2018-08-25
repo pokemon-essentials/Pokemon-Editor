@@ -9,6 +9,7 @@
 }
 
 .panel__body {
+  overflow: auto;
   padding: 5px;
   background-color: #ffffff;
   flex: 1;
@@ -34,4 +35,46 @@
   flex: 1;
   height: 100%;
   overflow: auto;
+}
+
+.command {
+  border: 1px solid;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+.command .el-collapse-item__header {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: inherit;
+  height: auto;
+  line-height: 1em;
+}
+
+.command .el-collapse-item__arrow {
+  color: inherit;
+  height: auto;
+  line-height: 1em;
+}
+
+.command .el-collapse-item__content {
+  padding: 10px;
+  background-color: inherit;
+  color: inherit;
+}
+
+.command .el-collapse-item__wrap {
+  background-color: inherit;
+  color: inherit;
+  border: transparent;
+}
+
+.command__title {
+  font-weight: bold;
+  color: #ffffff;
+  margin-right: 1em;
+}
+
+.form-group * {
+  display: block;
 }

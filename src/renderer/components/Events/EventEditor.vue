@@ -67,6 +67,9 @@
         <div class="panel">
             <span class="panel__title">Content</span>
             <div class="panel__body">
+              <ShowTextCommand></ShowTextCommand>
+              <ShowTextCommand></ShowTextCommand>
+              <ShowTextCommand></ShowTextCommand>
             </div>
           </div>
         </main>
@@ -84,8 +87,9 @@
 
 <script>
 import SwitchDialog from "./SwitchDialog";
+import ShowTextCommand from "./ShowTextCommand";
 export default {
-  components: { SwitchDialog },
+  components: { SwitchDialog, ShowTextCommand },
   data() {
     return {
       visible: false,
@@ -147,7 +151,7 @@ export default {
   grid-column-end: 5;
 }
 
-#automov{
+#automov {
   grid-column-start: 2;
   grid-column-end: 5;
 }
