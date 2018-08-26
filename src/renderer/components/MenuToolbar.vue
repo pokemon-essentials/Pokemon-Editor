@@ -1,7 +1,10 @@
 <template>
     <div class="menu_toolbar">
       <button>
-        <MapIcon @click="goto('landing-page')"></MapIcon>
+        <MapIcon @click="goto('landing')"></MapIcon>
+      </button>
+      <button>
+        <MapIcon @click="goto('TilemapEditor')"></MapIcon>
       </button>
       <button>
         <CodeIcon @click="toggleProjectExplorer()"></CodeIcon>

@@ -1,5 +1,7 @@
 <template>
-    <div class="project_explorer" v-if="visible"></div>
+    <div class="project_explorer" v-if="visible">
+      <el-tree :data="data" :props="defaultProps"></el-tree>
+    </div>
 </template>
 
 <script>
@@ -7,7 +9,11 @@ import { EventBus } from "../EventBus";
 export default {
   data() {
     return {
-      visible: true
+      visible: true,
+      defaultProps: {
+        children: "children",
+        label: "label"
+      }
     };
   },
   created() {
@@ -16,6 +22,21 @@ export default {
   methods: {
     toogle() {
       this.visible = !this.visible;
+    }
+  },
+  computed: {
+    data() {
+      return [
+        {
+          label: "Maps",
+          children: [
+            {
+              label: "Level three 3-2-1"
+            }
+          ]
+        },
+        { label: "Scripts" }
+      ];
     }
   }
 };

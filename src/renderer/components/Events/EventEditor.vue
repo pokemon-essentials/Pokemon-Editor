@@ -25,6 +25,7 @@
           <div class="panel" id="automov">
             <span class="panel__title">Autonomun movement</span>
             <div class="panel__body">
+              <PokemonSelect></PokemonSelect>
             </div>
           </div>
 
@@ -88,8 +89,9 @@
 <script>
 import SwitchDialog from "./SwitchDialog";
 import ShowTextCommand from "./ShowTextCommand";
+import PokemonSelect from "../PokemonSelect";
 export default {
-  components: { SwitchDialog, ShowTextCommand },
+  components: { SwitchDialog, ShowTextCommand, PokemonSelect },
   data() {
     return {
       visible: false,

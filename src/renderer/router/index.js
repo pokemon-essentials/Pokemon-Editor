@@ -7,7 +7,12 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "landing-page",
+      name: "landing",
+      component: () => import("@/components/Landing")
+    },
+    {
+      path: "/TilemapEditor",
+      name: "TilemapEditor",
       component: () => import("@/components/TilemapEditor")
     },
     {

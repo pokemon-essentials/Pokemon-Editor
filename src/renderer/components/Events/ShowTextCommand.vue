@@ -6,19 +6,19 @@
         <span>{{$truncate(model.text, 45)}}</span>
       </template>
       <el-row :gutter="10">
-        <el-col span="6">
+        <el-col :span="6">
           <label for="">Image:</label>
           <div class="image"></div>
         </el-col>
-        <el-col span="18">
+        <el-col :span="18">
           <div class="form-group">
             <label for="">Text:</label>
-            <el-input type="textarea" v-model="model.text" :rows="4"></el-input>
+            <el-input type="textarea" v-model="model.text" :rows="2"></el-input>
           </div>
         </el-col>
       </el-row>
       <el-row :gutter="10">
-        <el-col span="6" offset="6">
+        <el-col :span="6" :offset="6">
           <div class="form-group">
             <label for="">Background:</label>
             <el-select v-model="model.background" size="mini">
@@ -28,7 +28,7 @@
             </el-select>
           </div>
         </el-col>
-        <el-col span="6">
+        <el-col :span="6">
           <div class="form-group">
             <label for="">Window Position:</label>
             <el-select v-model="model.windowPosition" size="mini">
