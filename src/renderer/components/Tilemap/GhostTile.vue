@@ -1,5 +1,5 @@
 <template>
-  <canvas></canvas>
+  <canvas @mouseup="mouseup($event)"></canvas>
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
     EventBus.$on("UPDATE_GHOST_TILE", this.update);
     EventBus.$on("HIDE_GHOST_TILE", this.hide);
     EventBus.$on("MOVE_GHOST_TILE", this.move);
+    EventBus.$on("DRAW_PATTERN", this.drawPattern);
   },
   data() {
     return {};
@@ -34,6 +35,12 @@ export default {
     },
     show() {
       this.$el.style.display = "block";
+    },
+    mouseup(event) {
+      console.log(event);
+    },
+    drawPattern(x, y) {
+      EventBus.$emit("TILESET_DRAW_PATTERN", this.$el, x, y);
     }
   },
   computed: {

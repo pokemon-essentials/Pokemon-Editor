@@ -18,8 +18,13 @@ export default new Router({
     {
       path: "/EventEditor",
       name: "EventEditor",
-      component: () => import("@/components/Events/EventEditor")
+      component: () => import("@/components/ImgSelection")
     },
+    // {
+    //   path: "/EventEditor",
+    //   name: "EventEditor",
+    //   component: () => import("@/components/Events/EventEditor")
+    // },
     {
       path: "*",
       redirect: "/"

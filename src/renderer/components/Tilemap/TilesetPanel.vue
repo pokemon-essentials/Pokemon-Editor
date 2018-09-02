@@ -96,10 +96,10 @@ export default {
 
 <style>
 .tileset_panel {
-  width: 288px;
+  /* width: 288px; */
   position: relative;
   overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   box-sizing: content-box;
   border: none;
   text-overflow: clip;

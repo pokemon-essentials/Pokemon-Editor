@@ -3,15 +3,27 @@
       <div class="sidebar">
         <LayersPanel></LayersPanel>
         <el-button size="mini" @click="openEventEditor">hola</el-button>
-        <!-- <select name="" id="">
+        <select name="" id="">
           <option v-for="tileset in TileEditor.map.tilesets" :key="tileset.name">{{tileset.name}}</option>
-        </select> -->
+        </select>
         <TilesetPanel></TilesetPanel>
       </div>
       <div class="viewport">
-        <div class="toolbar"></div>
+        <div class="toolbar">
+          <el-radio-group v-model="layer" size="small" @change="selectLayer">
+            <el-radio-button
+              v-for="(layer, index) in TileEditor.map.layers"
+              :key="layer.name"
+              :label="index"></el-radio-button>
+            <el-radio-button label="Events"></el-radio-button>
+          </el-radio-group>
+        </div>
         <div ref="wrapper" class="board-wrapper">
-          <TileLayer v-for="layer in TileEditor.map.layers" :key="layer.name" :data="layer.data"></TileLayer>
+          <TileLayer
+            v-for="(layer, index) in TileEditor.map.layers"
+            :key="layer.name"
+            :data="layer.data"
+            :selected="index == selectedLayer || selectedLayer == 0"></TileLayer>
           <GridLayer></GridLayer>
           <GhostTile></GhostTile>
         </div>
@@ -33,13 +45,15 @@ import GridLayer from "./Tilemap/GridLayer";
 import TileLayer from "./Tilemap/TileLayer";
 import EventEditor from "./Events/EventEditor";
 
+let mapdata = require("../assets/map1.json");
+
 export default {
   components: { TilesetPanel, LayersPanel, GhostTile, GridLayer, TileLayer, EventEditor },
   created() {
     EventBus.$on("MOVE_GHOST_TILE", this.updateFooter);
   },
   data() {
-    return { x: null, y: null };
+    return { x: null, y: null, map: mapdata, layer: null, selectedLayer: 1 };
   },
   methods: {
     updateFooter(x, y) {
@@ -48,6 +62,9 @@ export default {
     },
     openEventEditor() {
       this.$refs.EventEditor.open();
+    },
+    selectLayer(index) {
+      this.selectedLayer = index;
     }
   },
   computed: {
@@ -69,10 +86,10 @@ export default {
   flex-direction: column;
 }
 
-select {
+/* select {
   flex: 1;
   min-height: 20px;
-}
+} */
 
 .viewport {
   display: flex;
@@ -94,5 +111,9 @@ select {
 footer {
   background-color: #c1c1c1;
   min-height: 20px;
+}
+
+.toolbar {
+  padding: 5px;
 }
 </style>

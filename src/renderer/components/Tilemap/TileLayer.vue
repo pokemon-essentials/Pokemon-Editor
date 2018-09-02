@@ -1,5 +1,5 @@
 <template>
-  <canvas></canvas>
+  <canvas :class="{'selected':selected}"></canvas>
 </template>
 
 <script>
@@ -8,9 +8,13 @@ import { mapState } from "vuex";
 import { snapToGrid, indexToX, indexToY, getTilesetIndex } from "../../Utils";
 
 export default {
-  props: ["data"],
+  props: ["data", "selected"],
   created() {
     EventBus.$on("RENDER_MAP", this.render);
+    EventBus.$on("TILESET_DRAW_PATTERN", this.drawPattern);
+  },
+  data() {
+    return {};
   },
   methods: {
     render() {
@@ -24,6 +28,7 @@ export default {
         if (tile === 0) continue;
         let tilesetIndex = getTilesetIndex(tile);
         let tileset = this.TileEditor.map.tilesets[tilesetIndex];
+        if (!tileset) return;
         let tilesetImg = this.TileEditor.tilesets[tilesetIndex];
         tile -= 1;
         let sx = (tile % tileset.columns) * this.TileEditor.map.tilewidth;
@@ -33,6 +38,13 @@ export default {
         // console.log(sy, sx, tx, ty);
         context.drawImage(tilesetImg, sx, sy, w, h, tx, ty, w, h);
       }
+    },
+    drawPattern(canvas, x, y) {
+      if (!this.selected) return;
+      /** @type {HTMLCanvasElement} */
+      let context = this.$el.getContext("2d");
+      context.clearRect(x, y, canvas.width, canvas.height);
+      context.drawImage(canvas, x, y);
     }
   },
   computed: {
@@ -43,7 +55,12 @@ export default {
 
 <style scoped>
 canvas {
-  /* background-color: antiquewhite; */
+  /* background-color: rgba(0, 0, 0, 0.1); */
   position: absolute;
+  opacity: 0.5;
+}
+
+.selected {
+  opacity: 1;
 }
 </style>

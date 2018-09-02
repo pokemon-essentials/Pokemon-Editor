@@ -1,7 +1,10 @@
 <template>
   <canvas ref="canvas"
-    @mousemove="moveGhotTile($event)"
-    @mouseout="hideGhotTile()"
+    @mousemove="moveGhostTile($event)"
+    @mouseout="hideGhostTile"
+    @mousedown="mousedown"
+    @mouseup="mouseup"
+    @click="draw($event)"
   ></canvas>
 </template>
 
@@ -11,6 +14,11 @@ import { mapState } from "vuex";
 import { snapToGrid } from "../../Utils";
 
 export default {
+  data() {
+    return {
+      isDraging: false
+    };
+  },
   mounted() {
     this.render();
   },
@@ -43,10 +51,10 @@ export default {
         context.stroke();
       }
     },
-    hideGhotTile() {
+    hideGhostTile() {
       EventBus.$emit("HIDE_GHOST_TILE");
     },
-    moveGhotTile(e) {
+    moveGhostTile(e) {
       let parentRect = this.$parent.$refs.wrapper.getBoundingClientRect();
       let canvas = this.$refs.canvas.getBoundingClientRect();
       let offset = Math.abs(canvas.top - parentRect.top);
@@ -55,6 +63,23 @@ export default {
       let x = snapToGrid(left);
       let y = snapToGrid(top);
       EventBus.$emit("MOVE_GHOST_TILE", x, y);
+      if (this.isDraging) this.draw(e);
+    },
+    mousedown(e) {
+      this.isDraging = true;
+    },
+    mouseup(e) {
+      this.isDraging = false;
+    },
+    draw(e) {
+      let parentRect = this.$parent.$refs.wrapper.getBoundingClientRect();
+      let canvas = this.$refs.canvas.getBoundingClientRect();
+      let offset = Math.abs(canvas.top - parentRect.top);
+      let top = e.pageY - parentRect.top + offset;
+      let left = e.pageX - parentRect.left;
+      let x = snapToGrid(left);
+      let y = snapToGrid(top);
+      EventBus.$emit("DRAW_PATTERN", x, y);
     }
   },
   computed: {

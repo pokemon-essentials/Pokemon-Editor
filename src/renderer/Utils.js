@@ -1,3 +1,5 @@
+var path = require("path");
+var fs = require("fs");
 import store from "./store";
 
 export function snapToGrid(value) {
@@ -28,4 +30,16 @@ export function getTilesetIndex(tiledata) {
       return index - 1;
     }
   }
+}
+
+export function allFilesSync(dir, fileList = []) {
+  fs.readdirSync(dir).forEach(file => {
+    const filePath = path.join(dir, file);
+    if (fs.statSync(filePath).isDirectory()) {
+      fileList.push({ path: file, chlidren: allFilesSync(filePath)});
+    } else {
+      fileList.push({ filename: file, path: filePath });
+    }
+  });
+  return fileList;
 }
